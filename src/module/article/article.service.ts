@@ -17,7 +17,8 @@ export class ArticleService {
     data.content = createArticleDto?.content ?? '';
     data.cover_picture = createArticleDto?.cover_picture ?? '';
     data.title = createArticleDto?.title ?? '';
-    return this.Article.save(data);
+    this.Article.save(data);
+    return '操作成功';
   }
 
   findAll() {
@@ -33,10 +34,12 @@ export class ArticleService {
   }
 
   update(id: number, updateArticleDto: UpdateArticleDto) {
-    return this.Article.update(id, updateArticleDto);
+    this.Article.update(id, updateArticleDto);
+    return '操作成功';
   }
 
   remove(id: number) {
-    return this.Article.delete(id);
+    this.Article.delete(id);
+    return '操作成功';
   }
 }
