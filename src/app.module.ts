@@ -12,7 +12,7 @@ import { TaskModule } from './wxmodule/task/task.module';
     TypeOrmModule.forRoot({
       type: 'mysql', //数据库类型
       username: 'root', //账号
-      password: 'admin123', //密码
+      password: 'liuchao.@lc', //密码
       host: 'localhost', //host
       port: 3306, //
       database: 'admin', //库名
