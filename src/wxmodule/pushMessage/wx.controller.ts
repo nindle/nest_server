@@ -7,9 +7,7 @@ export class WxController {
 
   @Post()
   async sendSubscribeMessage(@Body() body: any) {
-    console.log(body);
-
-    const { appId, appSecret } = body;
-    return this.wxService.sendSubscribeMessage(appId, appSecret);
+    const { data, code } = body;
+    return this.wxService.sendSubscribeMessage(data, code);
   }
 }

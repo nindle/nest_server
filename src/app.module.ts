@@ -4,7 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
 import { ArticleModule } from './module/article/article.module';
-import { WxModule } from './wx/wx.module';
+import { WxModule } from './wxmodule/pushMessage/wx.module';
+import { TaskModule } from './wxmodule/task/task.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { WxModule } from './wx/wx.module';
     UserModule,
     ArticleModule,
     WxModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],

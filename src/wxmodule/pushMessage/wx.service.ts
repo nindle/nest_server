@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { firstValueFrom } from 'rxjs'; // RxJS 7.x版本中，toPromise已被弃用，改为使用firstValueFrom
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class WxService {
@@ -12,7 +12,7 @@ export class WxService {
   ): Promise<string> {
     const url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${appSecret}`;
     try {
-      const response = await firstValueFrom(this.httpService.get(url)); // 修改为使用firstValueFrom
+      const response = await firstValueFrom(this.httpService.get(url));
       return response.data.access_token;
     } catch (error) {
       console.error('Failed to get access token:', error);
@@ -20,21 +20,24 @@ export class WxService {
     }
   }
 
-  public async sendSubscribeMessage(
-    openId: string,
-    data: object,
-  ): Promise<any> {
+  public async sendSubscribeMessage(data: object, code: string): Promise<any> {
     const accessToken = await this.getAccessToken(
       'wx7eebef0766987258',
       '6fce5237f28df7fa14dd114211b16b44',
     );
     const url = `https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=${accessToken}`;
 
+    const wxData = await firstValueFrom(
+      this.httpService.get(
+        `https://api.weixin.qq.com/sns/jscode2session?appid=wx7eebef0766987258&secret=6fce5237f28df7fa14dd114211b16b44&js_code=${code}&grant_type=authorization_code`,
+      ),
+    );
+
     const body = {
-      touser: openId,
+      touser: wxData.data.openid,
       template_id: 'dtR3VQ16DtXKNMpqOZ7jeszVR71_V7k-ApkgU5bzXI8',
       page: 'pages/index/index',
-      data,
+      data: data,
     };
 
     try {
