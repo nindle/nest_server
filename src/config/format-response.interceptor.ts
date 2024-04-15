@@ -28,7 +28,7 @@ export class FormatResponseInterceptor<T>
       map((data) => ({
         code: response.statusCode,
         message: 'success',
-        icon: '测试',
+        icon: '测试213',
         data,
       })),
     );
